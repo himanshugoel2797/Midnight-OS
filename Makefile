@@ -82,8 +82,7 @@ clobber:
 
 
 # all
-all:clean build
-	qemu-system-i386 -kernel "build/$(CONF)/kernel.bin"
+all:test
 .all-pre:
 # Add your pre 'all' code here...
 

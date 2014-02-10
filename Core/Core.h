@@ -23,9 +23,5 @@ private:
 
 };
 
-namespace GlobalData{
-    extern BIOS_BDA* BDA;
-}
-
 #endif	/* CORE_H */
 

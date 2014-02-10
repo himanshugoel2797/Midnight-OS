@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Common/mem.o \
 	${OBJECTDIR}/Core/APIC.o \
+	${OBJECTDIR}/Core/BIOSMemoryMap.o \
 	${OBJECTDIR}/Core/Tables/CPUID.o \
 	${OBJECTDIR}/Core/Tables/InterruptHandlers.o \
 	${OBJECTDIR}/Core/Tables/Tables.o \
@@ -82,6 +83,11 @@ ${OBJECTDIR}/Core/APIC.o: Core/APIC.cpp
 	${MKDIR} -p ${OBJECTDIR}/Core
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Core/APIC.o Core/APIC.cpp
+
+${OBJECTDIR}/Core/BIOSMemoryMap.o: Core/BIOSMemoryMap.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Core
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Core/BIOSMemoryMap.o Core/BIOSMemoryMap.cpp
 
 ${OBJECTDIR}/Core/Tables/CPUID.o: Core/Tables/CPUID.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Core/Tables

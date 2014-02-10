@@ -56,7 +56,12 @@ _start:
 	# our stack (as it grows downwards).
 	movl $stack_top, %esp
 
-	#setup the kernel core - Logger services, exception handlers and VGA Text mode display
+        /* Push the pointer to the Multiboot information structure. */
+        pushl   %eax
+        /* Push the magic value. */
+        pushl   %ebx
+	
+        #setup the kernel core - Logger services, exception handlers and VGA Text mode display
         call setup_kernel_core
         #initialize and call the global constructors
 	call _init
@@ -76,5 +81,3 @@ _start:
 # Set the size of the _start symbol to the current location '.' minus its start.
 # This is useful when debugging or when you implement call tracing.
 .size _start, . - _start
-
-

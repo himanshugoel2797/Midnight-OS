@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Common/mem.o \
 	${OBJECTDIR}/Core/APIC.o \
+	${OBJECTDIR}/Core/BIOSMemoryMap.o \
 	${OBJECTDIR}/Core/Tables/CPUID.o \
 	${OBJECTDIR}/Core/Tables/InterruptHandlers.o \
 	${OBJECTDIR}/Core/Tables/Tables.o \
@@ -76,42 +77,47 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/midnight-os: ${OBJECTFILES}
 ${OBJECTDIR}/Common/mem.o: Common/mem.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Common
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Common/mem.o Common/mem.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Common/mem.o Common/mem.cpp
 
 ${OBJECTDIR}/Core/APIC.o: Core/APIC.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Core
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Core/APIC.o Core/APIC.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Core/APIC.o Core/APIC.cpp
+
+${OBJECTDIR}/Core/BIOSMemoryMap.o: Core/BIOSMemoryMap.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Core
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Core/BIOSMemoryMap.o Core/BIOSMemoryMap.cpp
 
 ${OBJECTDIR}/Core/Tables/CPUID.o: Core/Tables/CPUID.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Core/Tables
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Core/Tables/CPUID.o Core/Tables/CPUID.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Core/Tables/CPUID.o Core/Tables/CPUID.cpp
 
 ${OBJECTDIR}/Core/Tables/InterruptHandlers.o: Core/Tables/InterruptHandlers.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Core/Tables
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Core/Tables/InterruptHandlers.o Core/Tables/InterruptHandlers.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Core/Tables/InterruptHandlers.o Core/Tables/InterruptHandlers.cpp
 
 ${OBJECTDIR}/Core/Tables/Tables.o: Core/Tables/Tables.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Core/Tables
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Core/Tables/Tables.o Core/Tables/Tables.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Core/Tables/Tables.o Core/Tables/Tables.cpp
 
 ${OBJECTDIR}/DisplayText.o: DisplayText.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DisplayText.o DisplayText.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/DisplayText.o DisplayText.cpp
 
 ${OBJECTDIR}/HAL/HAL_PIC.o: HAL/HAL_PIC.cpp 
 	${MKDIR} -p ${OBJECTDIR}/HAL
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/HAL/HAL_PIC.o HAL/HAL_PIC.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/HAL/HAL_PIC.o HAL/HAL_PIC.cpp
 
 ${OBJECTDIR}/HAL/I686_Core.o: HAL/I686_Core.cpp 
 	${MKDIR} -p ${OBJECTDIR}/HAL
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/HAL/I686_Core.o HAL/I686_Core.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/HAL/I686_Core.o HAL/I686_Core.cpp
 
 ${OBJECTDIR}/boot.o: boot.s 
 	${MKDIR} -p ${OBJECTDIR}
@@ -120,7 +126,7 @@ ${OBJECTDIR}/boot.o: boot.s
 ${OBJECTDIR}/crt0.o: crt0.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/crt0.o crt0.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/crt0.o crt0.cpp
 
 ${OBJECTDIR}/crti.o: crti.s 
 	${MKDIR} -p ${OBJECTDIR}

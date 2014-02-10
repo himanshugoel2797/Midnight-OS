@@ -58,25 +58,43 @@ _Z6strlenPKc:
 _ZN11DisplayText10InitializeEv:
 .LFB3:
 	.cfi_startproc
+	pushl	%esi
+	.cfi_def_cfa_offset 8
+	.cfi_offset 6, -8
+	movl	$24, %esi
+	pushl	%ebx
+	.cfi_def_cfa_offset 12
+	.cfi_offset 3, -12
+	xorl	%ebx, %ebx
 	movl	$0, row
-	xorl	%ecx, %ecx
 	movl	$0, column
+	movzwl	1098, %ecx
 	movb	$7, color
 	movl	$753664, buffer
+	movl	%ecx, _ZL9VGA_WIDTH
 	.align 16
 .L9:
+	testl	%ecx, %ecx
+	je	.L12
 	xorl	%eax, %eax
 	.align 16
-.L12:
-	leal	(%ecx,%eax), %edx
+.L13:
+	leal	(%ebx,%eax), %edx
 	addl	$1, %eax
-	cmpl	$80, %eax
+	cmpl	%eax, %ecx
 	movw	$1824, 753664(%edx,%edx)
-	jne	.L12
-	addl	$80, %ecx
-	cmpl	$1920, %ecx
+	ja	.L13
+.L12:
+	addl	%ecx, %ebx
+	subl	$1, %esi
 	jne	.L9
-	rep ret
+	popl	%ebx
+	.cfi_restore 3
+	.cfi_def_cfa_offset 8
+	popl	%esi
+	.cfi_restore 6
+	.cfi_def_cfa_offset 4
+	ret
 	.cfi_endproc
 .LFE3:
 	.size	_ZN11DisplayText10InitializeEv, .-_ZN11DisplayText10InitializeEv
@@ -101,13 +119,12 @@ _ZN11DisplayText10PutEntryAtEchmm:
 .LFB5:
 	.cfi_startproc
 	movzbl	8(%esp), %ecx
-	movl	16(%esp), %eax
 	movsbw	4(%esp), %dx
+	movl	16(%esp), %eax
+	imull	_ZL9VGA_WIDTH, %eax
 	sall	$8, %ecx
-	leal	(%eax,%eax,4), %eax
 	orl	%ecx, %edx
 	movl	buffer, %ecx
-	sall	$4, %eax
 	addl	12(%esp), %eax
 	movw	%dx, (%ecx,%eax,2)
 	ret
@@ -121,27 +138,45 @@ _ZN11DisplayText10PutEntryAtEchmm:
 _ZN11DisplayText5ClearEv:
 .LFB6:
 	.cfi_startproc
+	pushl	%edi
+	.cfi_def_cfa_offset 8
+	.cfi_offset 7, -8
 	movzbl	color, %ecx
+	pushl	%esi
+	.cfi_def_cfa_offset 12
+	.cfi_offset 6, -12
+	movl	_ZL9VGA_WIDTH, %esi
 	movl	buffer, %eax
 	pushl	%ebx
-	.cfi_def_cfa_offset 8
-	.cfi_offset 3, -8
+	.cfi_def_cfa_offset 16
+	.cfi_offset 3, -16
+	movl	$24, %ebx
 	sall	$8, %ecx
 	orl	$32, %ecx
-	leal	3840(%eax), %ebx
+	leal	(%esi,%esi), %edi
 	.align 16
-.L16:
-	leal	160(%eax), %edx
+.L21:
+	testl	%esi, %esi
+	leal	(%eax,%edi), %edx
+	je	.L24
 	.align 16
-.L19:
+.L25:
 	movw	%cx, (%eax)
 	addl	$2, %eax
-	cmpl	%edx, %eax
-	jne	.L19
-	cmpl	%ebx, %eax
-	jne	.L16
+	cmpl	%eax, %edx
+	jne	.L25
+.L24:
+	subl	$1, %ebx
+	movl	%edx, %eax
+	jne	.L21
 	popl	%ebx
 	.cfi_restore 3
+	.cfi_def_cfa_offset 12
+	popl	%esi
+	.cfi_restore 6
+	.cfi_def_cfa_offset 8
+	popl	%edi
+	.cfi_restore 7
 	.cfi_def_cfa_offset 4
 	ret
 	.cfi_endproc
@@ -154,45 +189,79 @@ _ZN11DisplayText5ClearEv:
 _ZN11DisplayText8ScrollUpEv:
 .LFB7:
 	.cfi_startproc
-	pushl	%esi
+	pushl	%ebp
 	.cfi_def_cfa_offset 8
-	.cfi_offset 6, -8
-	movl	$80, %esi
-	pushl	%ebx
+	.cfi_offset 5, -8
+	pushl	%edi
 	.cfi_def_cfa_offset 12
-	.cfi_offset 3, -12
-	movl	buffer, %ebx
-	leal	160(%ebx), %eax
+	.cfi_offset 7, -12
+	pushl	%esi
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	pushl	%ebx
+	.cfi_def_cfa_offset 20
+	.cfi_offset 3, -20
+	movl	$1, %ebx
+	subl	$4, %esp
+	.cfi_def_cfa_offset 24
+	movl	_ZL9VGA_WIDTH, %esi
+	movl	buffer, %ebp
+	leal	(%esi,%esi), %edi
+	movl	%esi, %ecx
+	leal	0(%ebp,%edi), %eax
+	negl	%ecx
 	.align 16
-.L22:
-	leal	160(%eax), %ecx
+.L31:
+	testl	%esi, %esi
+	leal	(%eax,%edi), %edx
+	je	.L35
+	movl	%ebx, (%esp)
 	.align 16
-.L25:
-	movzwl	(%eax), %edx
+.L36:
+	movzwl	(%eax), %ebx
+	movw	%bx, (%eax,%ecx,2)
 	addl	$2, %eax
-	movw	%dx, -162(%eax)
-	cmpl	%ecx, %eax
-	jne	.L25
-	addl	$80, %esi
-	cmpl	$1920, %esi
-	jne	.L22
-	movzbl	color, %edx
-	xorl	%eax, %eax
-	sall	$8, %edx
-	orl	$32, %edx
+	cmpl	%eax, %edx
+	jne	.L36
+	movl	(%esp), %ebx
+.L35:
+	addl	$1, %ebx
+	movl	%edx, %eax
+	cmpl	$24, %ebx
+	jne	.L31
+	testl	%esi, %esi
+	je	.L37
+	movzbl	color, %ecx
+	leal	(%esi,%esi,2), %edx
+	movl	%edx, %eax
+	sall	$4, %eax
+	leal	(%esi,%edx,8), %edx
+	addl	%ebp, %eax
+	sall	$8, %ecx
+	orl	$32, %ecx
+	leal	0(%ebp,%edx,2), %edx
 	.align 16
-.L27:
-	movw	%dx, 3840(%ebx,%eax,2)
-	addl	$1, %eax
-	cmpl	$80, %eax
-	jne	.L27
-	popl	%ebx
-	.cfi_restore 3
-	.cfi_def_cfa_offset 8
+.L38:
+	movw	%cx, (%eax)
+	addl	$2, %eax
+	cmpl	%edx, %eax
+	jne	.L38
+.L37:
 	movl	$0, column
 	movl	$24, row
+	addl	$4, %esp
+	.cfi_def_cfa_offset 20
+	popl	%ebx
+	.cfi_restore 3
+	.cfi_def_cfa_offset 16
 	popl	%esi
 	.cfi_restore 6
+	.cfi_def_cfa_offset 12
+	popl	%edi
+	.cfi_restore 7
+	.cfi_def_cfa_offset 8
+	popl	%ebp
+	.cfi_restore 5
 	.cfi_def_cfa_offset 4
 	ret
 	.cfi_endproc
@@ -216,14 +285,12 @@ _ZN11DisplayText9SetCursorEmm:
 	.cfi_offset 3, -16
 	subl	$16, %esp
 	.cfi_def_cfa_offset 32
-	movl	_ZN10GlobalData3BDAE, %edx
-	movl	36(%esp), %ebx
-	movzbl	100(%edx), %eax
-	movzbl	99(%edx), %esi
-	leal	(%ebx,%ebx,4), %ebx
-	sall	$4, %ebx
-	addw	32(%esp), %bx
+	movzbl	1124, %eax
+	movzbl	1123, %esi
+	movl	_ZL9VGA_WIDTH, %ebx
+	imulw	36(%esp), %bx
 	sall	$8, %eax
+	addw	32(%esp), %bx
 	orl	%eax, %esi
 	movzwl	%si, %edi
 	addl	$1, %esi
@@ -263,70 +330,84 @@ _ZN11DisplayText9SetCursorEmm:
 _ZN11DisplayText7PutCharEc:
 .LFB9:
 	.cfi_startproc
-	pushl	%esi
+	pushl	%edi
 	.cfi_def_cfa_offset 8
-	.cfi_offset 6, -8
-	pushl	%ebx
+	.cfi_offset 7, -8
+	pushl	%esi
 	.cfi_def_cfa_offset 12
-	.cfi_offset 3, -12
-	movl	12(%esp), %eax
+	.cfi_offset 6, -12
+	pushl	%ebx
+	.cfi_def_cfa_offset 16
+	.cfi_offset 3, -16
+	movl	16(%esp), %eax
 	cmpb	$10, %al
-	je	.L41
-	movl	row, %ecx
+	je	.L56
+	movl	_ZL9VGA_WIDTH, %ecx
 	cbtw
-	movl	column, %ebx
-	leal	(%ecx,%ecx,4), %edx
-	sall	$4, %edx
-	leal	(%edx,%ebx), %esi
+	movl	row, %esi
 	movzbl	color, %edx
+	movl	column, %ebx
+	movl	%ecx, %edi
+	imull	%esi, %edi
 	sall	$8, %edx
 	orl	%edx, %eax
 	movl	buffer, %edx
-	movw	%ax, (%edx,%esi,2)
+	addl	%ebx, %edi
+	movw	%ax, (%edx,%edi,2)
 	leal	1(%ebx), %eax
-	cmpl	$80, %eax
+	cmpl	%ecx, %eax
 	movl	%eax, column
-	je	.L42
-.L31:
+	je	.L57
+.L46:
 	popl	%ebx
 	.cfi_remember_state
 	.cfi_restore 3
-	.cfi_def_cfa_offset 8
+	.cfi_def_cfa_offset 12
 	popl	%esi
 	.cfi_restore 6
+	.cfi_def_cfa_offset 8
+	popl	%edi
+	.cfi_restore 7
 	.cfi_def_cfa_offset 4
 	ret
 	.align 16
-.L42:
+.L57:
 	.cfi_restore_state
-	addl	$1, %ecx
-	cmpl	$24, %ecx
+	addl	$1, %esi
+	cmpl	$24, %esi
 	movl	$0, column
-	movl	%ecx, row
-	jne	.L31
-.L33:
+	movl	%esi, row
+	jne	.L46
+.L48:
 	popl	%ebx
 	.cfi_remember_state
 	.cfi_restore 3
-	.cfi_def_cfa_offset 8
+	.cfi_def_cfa_offset 12
 	popl	%esi
 	.cfi_restore 6
+	.cfi_def_cfa_offset 8
+	popl	%edi
+	.cfi_restore 7
 	.cfi_def_cfa_offset 4
 	jmp	_ZN11DisplayText8ScrollUpEv
 	.align 16
-.L41:
+.L56:
 	.cfi_restore_state
+	movl	_ZL9VGA_WIDTH, %eax
+	movl	%eax, column
 	movl	row, %eax
-	movl	$80, column
 	addl	$1, %eax
 	cmpl	$23, %eax
 	movl	%eax, row
-	ja	.L33
+	ja	.L48
 	popl	%ebx
 	.cfi_restore 3
-	.cfi_def_cfa_offset 8
+	.cfi_def_cfa_offset 12
 	popl	%esi
 	.cfi_restore 6
+	.cfi_def_cfa_offset 8
+	popl	%edi
+	.cfi_restore 7
 	.cfi_def_cfa_offset 4
 	ret
 	.cfi_endproc
@@ -350,22 +431,22 @@ _ZN11DisplayText11WriteStringEPKc:
 	.cfi_def_cfa_offset 32
 	movl	32(%esp), %ebx
 	cmpb	$0, (%ebx)
-	je	.L47
+	je	.L62
 	.align 16
-.L49:
+.L64:
 	addl	$1, %eax
 	cmpb	$0, (%ebx,%eax)
-	jne	.L49
+	jne	.L64
 	leal	(%ebx,%eax), %esi
 	.align 16
-.L48:
+.L63:
 	movsbl	(%ebx), %edx
 	addl	$1, %ebx
 	movl	%edx, (%esp)
 	call	_ZN11DisplayText7PutCharEc
 	cmpl	%esi, %ebx
-	jne	.L48
-.L47:
+	jne	.L63
+.L62:
 	movl	row, %eax
 	movl	%eax, 4(%esp)
 	movl	column, %eax
@@ -405,9 +486,9 @@ _ZN11DisplayText8WriteHexEl:
 	.cfi_def_cfa_offset 48
 	movl	48(%esp), %eax
 	movb	$0, 31(%esp)
-	jmp	.L56
+	jmp	.L71
 	.align 16
-.L64:
+.L79:
 	addl	$48, %edx
 	testl	%eax, %eax
 	movb	%dl, 21(%esp,%ebx)
@@ -415,11 +496,11 @@ _ZN11DisplayText8WriteHexEl:
 	cmovs	%edx, %eax
 	sarl	$4, %eax
 	subl	$1, %ebx
-	js	.L55
-.L65:
+	js	.L70
+.L80:
 	testl	%eax, %eax
-	jle	.L55
-.L56:
+	jle	.L70
+.L71:
 	movl	%eax, %ecx
 	sarl	$31, %ecx
 	shrl	$28, %ecx
@@ -427,7 +508,7 @@ _ZN11DisplayText8WriteHexEl:
 	andl	$15, %edx
 	subl	%ecx, %edx
 	cmpl	$9, %edx
-	jle	.L64
+	jle	.L79
 	addl	$55, %edx
 	testl	%eax, %eax
 	movb	%dl, 21(%esp,%ebx)
@@ -435,8 +516,8 @@ _ZN11DisplayText8WriteHexEl:
 	cmovs	%edx, %eax
 	sarl	$4, %eax
 	subl	$1, %ebx
-	jns	.L65
-.L55:
+	jns	.L80
+.L70:
 	leal	21(%esp), %esi
 	testl	%ebx, %ebx
 	leal	1(%esi,%ebx), %eax
@@ -476,12 +557,12 @@ _ZN11DisplayText8WriteIntEl:
 	.cfi_def_cfa_offset 48
 	movl	48(%esp), %ecx
 	movb	$0, 31(%esp)
-	jmp	.L68
+	jmp	.L83
 	.align 16
-.L76:
+.L91:
 	testl	%edx, %edx
-	jle	.L67
-.L68:
+	jle	.L82
+.L83:
 	movl	%ecx, %eax
 	imull	%esi
 	movl	%ecx, %eax
@@ -495,8 +576,8 @@ _ZN11DisplayText8WriteIntEl:
 	movb	%cl, 21(%esp,%ebx)
 	subl	$1, %ebx
 	movl	%edx, %ecx
-	jns	.L76
-.L67:
+	jns	.L91
+.L82:
 	leal	21(%esp), %eax
 	testl	%ebx, %ebx
 	leal	1(%eax,%ebx), %edx
@@ -565,7 +646,7 @@ _ZN11DisplayText9WriteBoolEb:
 	.cfi_def_cfa_offset 32
 	movzbl	color, %ebx
 	cmpb	$0, 32(%esp)
-	jne	.L83
+	jne	.L98
 	movl	$.LC2, (%esp)
 	movb	$4, color
 	call	_ZN11DisplayText11WriteStringEPKc
@@ -578,7 +659,7 @@ _ZN11DisplayText9WriteBoolEb:
 	.cfi_def_cfa_offset 4
 	ret
 	.align 16
-.L83:
+.L98:
 	.cfi_restore_state
 	movl	$.LC1, (%esp)
 	movb	$2, color
@@ -613,7 +694,7 @@ _ZN11DisplayText15WritePassOrFailEb:
 	.cfi_def_cfa_offset 32
 	movzbl	color, %ebx
 	cmpb	$0, 32(%esp)
-	jne	.L88
+	jne	.L103
 	movl	$.LC4, (%esp)
 	movb	$4, color
 	call	_ZN11DisplayText11WriteStringEPKc
@@ -626,7 +707,7 @@ _ZN11DisplayText15WritePassOrFailEb:
 	.cfi_def_cfa_offset 4
 	ret
 	.align 16
-.L88:
+.L103:
 	.cfi_restore_state
 	movl	$.LC3, (%esp)
 	movb	$2, color
@@ -665,4 +746,10 @@ column:
 	.size	row, 4
 row:
 	.zero	4
+	.data
+	.align 4
+	.type	_ZL9VGA_WIDTH, @object
+	.size	_ZL9VGA_WIDTH, 4
+_ZL9VGA_WIDTH:
+	.long	80
 	.ident	"GCC: (GNU) 4.8.2"

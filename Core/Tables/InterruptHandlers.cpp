@@ -47,36 +47,10 @@ void InterruptHandlers::isrNOPARAM7() {
     asm("cli");
     InterruptHandler(7);
 }
-void InterruptHandlers::isrNOPARAM8() {
-    asm("cli");
-    InterruptHandler(8);
-}
 
 void InterruptHandlers::isrNOPARAM9() {
     asm("cli");
     InterruptHandler(9);
-}
-void InterruptHandlers::isrNOPARAM10() {
-    asm("cli");
-    InterruptHandler(10);
-}
-
-void InterruptHandlers::isrNOPARAM11() {
-    asm("cli");
-    InterruptHandler(11);
-}
-void InterruptHandlers::isrNOPARAM12() {
-    asm("cli");
-    InterruptHandler(12);
-}
-
-void InterruptHandlers::isrNOPARAM13() {
-    asm("cli");
-    InterruptHandler(13);
-}
-void InterruptHandlers::isrNOPARAM14() {
-    asm("cli");
-    InterruptHandler(14);
 }
 
 void InterruptHandlers::isrNOPARAM15() {

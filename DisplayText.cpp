@@ -7,6 +7,7 @@
 
 #include "DisplayText.h"
 #include "Core/Core.h"
+#include "Core/BIOSMemoryMap.h"
 
 /* Hardware text mode color constants. */
 
@@ -27,8 +28,8 @@ size_t strlen(const char* str) {
     return ret;
 }
 
-static const size_t VGA_WIDTH = 80;
-static const size_t VGA_HEIGHT = 24;
+static size_t VGA_WIDTH = 80;
+static size_t VGA_HEIGHT = 24;
 
 size_t row;
 size_t column;
@@ -38,6 +39,9 @@ uint16_t* buffer;
 void DisplayText::Initialize() {
     row = 0;
     column = 0;
+    
+    VGA_WIDTH = BIOSMemMap::BIOSData->vid_columns;
+    
     color = DisplayText::MakeColor(COLOR_LIGHT_GREY, COLOR_BLACK);
     buffer = (uint16_t*) 0xB8000;
     for (size_t y = 0; y < VGA_HEIGHT; y++) {
@@ -85,7 +89,7 @@ void DisplayText::ScrollUp()
 void DisplayText::SetCursor(uint32_t x, uint32_t y)
 {
     uint16_t position = (y*VGA_WIDTH)+x;
-    uint16_t addr = (GlobalData::BDA->CRT_base_addr[1] << 8) | GlobalData::BDA->CRT_base_addr[0];
+    uint16_t addr = (BIOSMemMap::BIOSData->CRT_base_addr[1] << 8) | BIOSMemMap::BIOSData->CRT_base_addr[0];
     //Low port
     Core::OutByte(addr, 0x0F);
     Core::OutByte(addr + 1, (uint16_t)(position&0xFF));

@@ -23,13 +23,7 @@ public:
     static void isrNOPARAM5();
     static void isrNOPARAM6();
     static void isrNOPARAM7();
-    static void isrNOPARAM8();
     static void isrNOPARAM9();
-    static void isrNOPARAM10();
-    static void isrNOPARAM11();
-    static void isrNOPARAM12();
-    static void isrNOPARAM13();
-    static void isrNOPARAM14();
     static void isrNOPARAM15();
     static void isrNOPARAM16();
     static void isrNOPARAM17();
