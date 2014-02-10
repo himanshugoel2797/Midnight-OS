@@ -13,6 +13,7 @@
 
 class InterruptHandlers {
 public:
+    static void Initialize();
     static void InterruptHandler(uint8_t num);
     // These extern directives let us access the addresses of our ASM ISR handlers.
     static void isrNOPARAM0();
@@ -42,9 +43,10 @@ public:
     static void isrNOPARAM30();
     static void isrNOPARAM31();
     static void isrONEPARAM(uint8_t);
+    static void RegisterInterruptHandler(int32_t interruptNumber, void (*function)(int32_t));
+    static void UnregisterInterruptHandler(int32_t interruptNumber);
     static void Update();
 private:
-
 };
 
 #endif	/* INTERRUPTHANDLERS_H */

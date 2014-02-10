@@ -135,10 +135,32 @@ void InterruptHandlers::isrONEPARAM(uint8_t num) {
     InterruptHandler(num);
 }
 
+void(*handlers[256])(int32_t);
+
+void InterruptHandlers::Initialize()
+{
+    memset((void*)(&handlers),0, sizeof(handlers));
+    InterruptHandlers::Update();
+}
+
+void InterruptHandlers::RegisterInterruptHandler(int32_t interruptNumber, void(*function)(int32_t))
+{
+    handlers[interruptNumber] = function;
+}
+
+void InterruptHandlers::UnregisterInterruptHandler(int32_t interruptNumber)
+{
+    handlers[interruptNumber] = NULL;
+}
+
 void InterruptHandlers::InterruptHandler(uint8_t num) {
+    if(handlers[num] == NULL){
     DisplayText::WriteString("\nInterrupt Received : ");
     DisplayText::WriteInt(num);
     DisplayText::WriteString("\n");
+    }else{
+        (*handlers[num])(num);
+    }
 }
 
 void InterruptHandlers::Update() {

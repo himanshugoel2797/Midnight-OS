@@ -1,4 +1,51 @@
 	.file	"InterruptHandlers.cpp"
+	.text
+	.align 2
+	.align 16
+	.globl	_ZN17InterruptHandlers10InitializeEv
+	.type	_ZN17InterruptHandlers10InitializeEv, @function
+_ZN17InterruptHandlers10InitializeEv:
+.LFB27:
+	.cfi_startproc
+	subl	$28, %esp
+	.cfi_def_cfa_offset 32
+	movl	$1024, 8(%esp)
+	movl	$0, 4(%esp)
+	movl	$handlers, (%esp)
+	call	memset
+	addl	$28, %esp
+	.cfi_def_cfa_offset 4
+	jmp	_ZN6Tables8IDT_InitEv
+	.cfi_endproc
+.LFE27:
+	.size	_ZN17InterruptHandlers10InitializeEv, .-_ZN17InterruptHandlers10InitializeEv
+	.align 2
+	.align 16
+	.globl	_ZN17InterruptHandlers24RegisterInterruptHandlerElPFvlE
+	.type	_ZN17InterruptHandlers24RegisterInterruptHandlerElPFvlE, @function
+_ZN17InterruptHandlers24RegisterInterruptHandlerElPFvlE:
+.LFB28:
+	.cfi_startproc
+	movl	8(%esp), %edx
+	movl	4(%esp), %eax
+	movl	%edx, handlers(,%eax,4)
+	ret
+	.cfi_endproc
+.LFE28:
+	.size	_ZN17InterruptHandlers24RegisterInterruptHandlerElPFvlE, .-_ZN17InterruptHandlers24RegisterInterruptHandlerElPFvlE
+	.align 2
+	.align 16
+	.globl	_ZN17InterruptHandlers26UnregisterInterruptHandlerEl
+	.type	_ZN17InterruptHandlers26UnregisterInterruptHandlerEl, @function
+_ZN17InterruptHandlers26UnregisterInterruptHandlerEl:
+.LFB29:
+	.cfi_startproc
+	movl	4(%esp), %eax
+	movl	$0, handlers(,%eax,4)
+	ret
+	.cfi_endproc
+.LFE29:
+	.size	_ZN17InterruptHandlers26UnregisterInterruptHandlerEl, .-_ZN17InterruptHandlers26UnregisterInterruptHandlerEl
 	.section	.rodata.str1.1,"aMS",@progbits,1
 .LC0:
 	.string	"\nInterrupt Received : "
@@ -10,17 +57,30 @@
 	.globl	_ZN17InterruptHandlers16InterruptHandlerEh
 	.type	_ZN17InterruptHandlers16InterruptHandlerEh, @function
 _ZN17InterruptHandlers16InterruptHandlerEh:
-.LFB27:
+.LFB30:
 	.cfi_startproc
 	pushl	%ebx
 	.cfi_def_cfa_offset 8
 	.cfi_offset 3, -8
 	subl	$24, %esp
 	.cfi_def_cfa_offset 32
-	movl	32(%esp), %ebx
+	movzbl	32(%esp), %ebx
+	movl	handlers(,%ebx,4), %eax
+	testl	%eax, %eax
+	je	.L9
+	movl	%ebx, 32(%esp)
+	addl	$24, %esp
+	.cfi_remember_state
+	.cfi_def_cfa_offset 8
+	popl	%ebx
+	.cfi_restore 3
+	.cfi_def_cfa_offset 4
+	jmp	*%eax
+	.align 16
+.L9:
+	.cfi_restore_state
 	movl	$.LC0, (%esp)
 	call	_ZN11DisplayText11WriteStringEPKc
-	movzbl	%bl, %ebx
 	movl	%ebx, (%esp)
 	call	_ZN11DisplayText8WriteIntEl
 	movl	$.LC1, 32(%esp)
@@ -31,7 +91,7 @@ _ZN17InterruptHandlers16InterruptHandlerEh:
 	.cfi_def_cfa_offset 4
 	jmp	_ZN11DisplayText11WriteStringEPKc
 	.cfi_endproc
-.LFE27:
+.LFE30:
 	.size	_ZN17InterruptHandlers16InterruptHandlerEh, .-_ZN17InterruptHandlers16InterruptHandlerEh
 	.align 2
 	.align 16
@@ -628,10 +688,17 @@ _ZN17InterruptHandlers11isrONEPARAMEh:
 	.globl	_ZN17InterruptHandlers6UpdateEv
 	.type	_ZN17InterruptHandlers6UpdateEv, @function
 _ZN17InterruptHandlers6UpdateEv:
-.LFB28:
+.LFB31:
 	.cfi_startproc
 	jmp	_ZN6Tables8IDT_InitEv
 	.cfi_endproc
-.LFE28:
+.LFE31:
 	.size	_ZN17InterruptHandlers6UpdateEv, .-_ZN17InterruptHandlers6UpdateEv
+	.globl	handlers
+	.section	.bss
+	.align 32
+	.type	handlers, @object
+	.size	handlers, 1024
+handlers:
+	.zero	1024
 	.ident	"GCC: (GNU) 4.8.2"

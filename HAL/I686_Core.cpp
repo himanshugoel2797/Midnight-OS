@@ -7,14 +7,14 @@
 
 #include "../Core/Core.h"
 #include "../Common/Config.h"
+#include "../Core/Tables/Tables.h"
+#include "../Core/Tables/InterruptHandlers.h"
 
 #if defined(I686_ARCH) || defined(I586_ARCH) || defined(I386_ARCH)
-namespace GlobalData{
-BIOS_BDA* BDA;
-}
 void Core::Initialize()
 {
-    GlobalData::BDA = (BIOS_BDA*)BDA_ADDRESS;   //Read the Bios Data
+    Tables::Initialize();
+    InterruptHandlers::Initialize();
     CPUID::EnumerateFeatures();                 //Get all the available features on the CPU
 }
 

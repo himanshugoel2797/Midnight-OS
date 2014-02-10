@@ -7,7 +7,12 @@
 _ZN4Core10InitializeEv:
 .LFB0:
 	.cfi_startproc
-	movl	$1024, _ZN10GlobalData3BDAE
+	subl	$12, %esp
+	.cfi_def_cfa_offset 16
+	call	_ZN6Tables10InitializeEv
+	call	_ZN17InterruptHandlers10InitializeEv
+	addl	$12, %esp
+	.cfi_def_cfa_offset 4
 	jmp	_ZN5CPUID17EnumerateFeaturesEv
 	.cfi_endproc
 .LFE0:
@@ -64,11 +69,4 @@ _ZN4Core6InByteEt:
 	.cfi_endproc
 .LFE3:
 	.size	_ZN4Core6InByteEt, .-_ZN4Core6InByteEt
-	.globl	_ZN10GlobalData3BDAE
-	.section	.bss
-	.align 4
-	.type	_ZN10GlobalData3BDAE, @object
-	.size	_ZN10GlobalData3BDAE, 4
-_ZN10GlobalData3BDAE:
-	.zero	4
 	.ident	"GCC: (GNU) 4.8.2"
