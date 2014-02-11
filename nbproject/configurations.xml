@@ -5,9 +5,11 @@
       <logicalFolder name="f1" displayName="Headers" projectFiles="true">
         <itemPath>Common/Config.h</itemPath>
         <itemPath>Common/mem.h</itemPath>
+        <itemPath>Common/stdlib.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="Source" projectFiles="true">
         <itemPath>Common/mem.cpp</itemPath>
+        <itemPath>Common/stdlib.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="HeaderFiles"
@@ -94,6 +96,10 @@
       </item>
       <item path="Common/mem.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Common/stdlib.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Common/stdlib.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Core/APIC.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Core/APIC.h" ex="false" tool="3" flavor2="0">
@@ -162,6 +168,10 @@
       <item path="Common/mem.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Common/mem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Common/stdlib.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Common/stdlib.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Core/APIC.cpp" ex="false" tool="1" flavor2="0">
       </item>

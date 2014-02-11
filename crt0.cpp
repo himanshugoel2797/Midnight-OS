@@ -80,6 +80,8 @@ void kernel_main() {
     DisplayText::WritePassOrFail(temp);                                 //Check if it worked
     InterruptHandlers::UnregisterInterruptHandler(1);                   //Unregister the interrupt handler
     
+    DisplayText::WriteHex(0x555f);
+    
     for (int8_t* x = (int8_t*) 1; x < (int8_t*) 0x100; x++) {
         DisplayText::WriteHex(*x);
         DisplayText::WriteString(" ");

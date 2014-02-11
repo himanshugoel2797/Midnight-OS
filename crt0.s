@@ -167,6 +167,8 @@ kernel_main:
 	call	_ZN11DisplayText15WritePassOrFailEb
 	movl	$1, (%esp)
 	call	_ZN17InterruptHandlers26UnregisterInterruptHandlerEl
+	movl	$21855, (%esp)
+	call	_ZN11DisplayText8WriteHexEl
 	.align 16
 .L10:
 	movsbl	(%ebx), %eax

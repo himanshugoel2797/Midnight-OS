@@ -1,7 +1,7 @@
 # Environment 
 
 SOURCES=boot.o crt0.o Core/Tables/InterruptHandlers.o Core/Tables/Tables.o DisplayText.o \
-	Common/mem.o HAL/I686_Core.o Core/Tables/CPUID.o HAL/HAL_PIC.o
+	Common/mem.o HAL/I686_Core.o Core/Tables/CPUID.o HAL/HAL_PIC.o Common/stdlib.o
 
 
 

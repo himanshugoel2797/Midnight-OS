@@ -8,6 +8,7 @@
 #include "DisplayText.h"
 #include "Core/Core.h"
 #include "Core/BIOSMemoryMap.h"
+#include "Common/stdlib.h"
 
 /* Hardware text mode color constants. */
 
@@ -117,38 +118,16 @@ void DisplayText::PutChar(char c) {
 }
 
 void DisplayText::WriteHex(int32_t num) {
-    char c[11];
-    c[10] = 0x00; //Null terminator
-    int counter = 9;
-    do {
-        int digit = num % 16;
-        if(digit < 10){
-        c[counter] = (char) (digit + 48);
-        }else{
-            c[counter] = (char)(digit - 10 + 65);
-        }
-        num /= 16;
-        counter--;
-    } while (num > 0 && counter >= 0);
-    char* str = (char*) &c;
-    if (counter != 0)str += counter + 1; //Jump ahead to where the string really starts
+   char c[sizeof(int32_t)];
+    itoa(num, c, 16);
     DisplayText::WriteString("0x");
-    DisplayText::WriteString((const char*) str);
+    DisplayText::WriteString((const char*) c);
 }
 
 void DisplayText::WriteInt(int32_t num) {
-    char c[11];
-    c[10] = 0x00; //Null terminator
-    int counter = 9;
-    do {
-        int digit = num % 10;
-        c[counter] = (char) (digit + 48);
-        num /= 10;
-        counter--;
-    } while (num > 0 && counter >= 0);
-    char* str = (char*) &c;
-    if (counter != 0)str += counter + 1; //Jump ahead to where the string really starts
-    DisplayText::WriteString((const char*) str);
+    char c[sizeof(int32_t)];
+    itoa(num, c, 10);
+    DisplayText::WriteString((const char*) c);
 }
 
 void DisplayText::WriteString(const char* data) {

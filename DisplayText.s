@@ -475,64 +475,25 @@ _ZN11DisplayText11WriteStringEPKc:
 _ZN11DisplayText8WriteHexEl:
 .LFB10:
 	.cfi_startproc
-	pushl	%esi
-	.cfi_def_cfa_offset 8
-	.cfi_offset 6, -8
 	pushl	%ebx
-	.cfi_def_cfa_offset 12
-	.cfi_offset 3, -12
-	movl	$9, %ebx
-	subl	$36, %esp
+	.cfi_def_cfa_offset 8
+	.cfi_offset 3, -8
+	subl	$40, %esp
 	.cfi_def_cfa_offset 48
 	movl	48(%esp), %eax
-	movb	$0, 31(%esp)
-	jmp	.L71
-	.align 16
-.L79:
-	addl	$48, %edx
-	testl	%eax, %eax
-	movb	%dl, 21(%esp,%ebx)
-	leal	15(%eax), %edx
-	cmovs	%edx, %eax
-	sarl	$4, %eax
-	subl	$1, %ebx
-	js	.L70
-.L80:
-	testl	%eax, %eax
-	jle	.L70
-.L71:
-	movl	%eax, %ecx
-	sarl	$31, %ecx
-	shrl	$28, %ecx
-	leal	(%eax,%ecx), %edx
-	andl	$15, %edx
-	subl	%ecx, %edx
-	cmpl	$9, %edx
-	jle	.L79
-	addl	$55, %edx
-	testl	%eax, %eax
-	movb	%dl, 21(%esp,%ebx)
-	leal	15(%eax), %edx
-	cmovs	%edx, %eax
-	sarl	$4, %eax
-	subl	$1, %ebx
-	jns	.L80
-.L70:
-	leal	21(%esp), %esi
-	testl	%ebx, %ebx
-	leal	1(%esi,%ebx), %eax
-	cmovne	%eax, %esi
+	leal	28(%esp), %ebx
+	movl	%ebx, 4(%esp)
+	movl	$16, 8(%esp)
+	movl	%eax, (%esp)
+	call	_Z4itoaiPci
 	movl	$.LC0, (%esp)
 	call	_ZN11DisplayText11WriteStringEPKc
-	movl	%esi, (%esp)
+	movl	%ebx, (%esp)
 	call	_ZN11DisplayText11WriteStringEPKc
-	addl	$36, %esp
-	.cfi_def_cfa_offset 12
+	addl	$40, %esp
+	.cfi_def_cfa_offset 8
 	popl	%ebx
 	.cfi_restore 3
-	.cfi_def_cfa_offset 8
-	popl	%esi
-	.cfi_restore 6
 	.cfi_def_cfa_offset 4
 	ret
 	.cfi_endproc
@@ -545,52 +506,23 @@ _ZN11DisplayText8WriteHexEl:
 _ZN11DisplayText8WriteIntEl:
 .LFB11:
 	.cfi_startproc
-	pushl	%esi
-	.cfi_def_cfa_offset 8
-	.cfi_offset 6, -8
-	movl	$1717986919, %esi
 	pushl	%ebx
-	.cfi_def_cfa_offset 12
-	.cfi_offset 3, -12
-	movl	$9, %ebx
-	subl	$36, %esp
+	.cfi_def_cfa_offset 8
+	.cfi_offset 3, -8
+	subl	$40, %esp
 	.cfi_def_cfa_offset 48
-	movl	48(%esp), %ecx
-	movb	$0, 31(%esp)
-	jmp	.L83
-	.align 16
-.L91:
-	testl	%edx, %edx
-	jle	.L82
-.L83:
-	movl	%ecx, %eax
-	imull	%esi
-	movl	%ecx, %eax
-	sarl	$31, %eax
-	sarl	$2, %edx
-	subl	%eax, %edx
-	leal	(%edx,%edx,4), %eax
-	addl	%eax, %eax
-	subl	%eax, %ecx
-	addl	$48, %ecx
-	movb	%cl, 21(%esp,%ebx)
-	subl	$1, %ebx
-	movl	%edx, %ecx
-	jns	.L91
-.L82:
-	leal	21(%esp), %eax
-	testl	%ebx, %ebx
-	leal	1(%eax,%ebx), %edx
-	cmovne	%edx, %eax
+	movl	48(%esp), %eax
+	leal	28(%esp), %ebx
+	movl	%ebx, 4(%esp)
+	movl	$10, 8(%esp)
 	movl	%eax, (%esp)
+	call	_Z4itoaiPci
+	movl	%ebx, (%esp)
 	call	_ZN11DisplayText11WriteStringEPKc
-	addl	$36, %esp
-	.cfi_def_cfa_offset 12
+	addl	$40, %esp
+	.cfi_def_cfa_offset 8
 	popl	%ebx
 	.cfi_restore 3
-	.cfi_def_cfa_offset 8
-	popl	%esi
-	.cfi_restore 6
 	.cfi_def_cfa_offset 4
 	ret
 	.cfi_endproc
@@ -646,7 +578,7 @@ _ZN11DisplayText9WriteBoolEb:
 	.cfi_def_cfa_offset 32
 	movzbl	color, %ebx
 	cmpb	$0, 32(%esp)
-	jne	.L98
+	jne	.L77
 	movl	$.LC2, (%esp)
 	movb	$4, color
 	call	_ZN11DisplayText11WriteStringEPKc
@@ -659,7 +591,7 @@ _ZN11DisplayText9WriteBoolEb:
 	.cfi_def_cfa_offset 4
 	ret
 	.align 16
-.L98:
+.L77:
 	.cfi_restore_state
 	movl	$.LC1, (%esp)
 	movb	$2, color
@@ -694,7 +626,7 @@ _ZN11DisplayText15WritePassOrFailEb:
 	.cfi_def_cfa_offset 32
 	movzbl	color, %ebx
 	cmpb	$0, 32(%esp)
-	jne	.L103
+	jne	.L82
 	movl	$.LC4, (%esp)
 	movb	$4, color
 	call	_ZN11DisplayText11WriteStringEPKc
@@ -707,7 +639,7 @@ _ZN11DisplayText15WritePassOrFailEb:
 	.cfi_def_cfa_offset 4
 	ret
 	.align 16
-.L103:
+.L82:
 	.cfi_restore_state
 	movl	$.LC3, (%esp)
 	movb	$2, color

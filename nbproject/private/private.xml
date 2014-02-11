@@ -8,7 +8,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="OS"/>
         <group>
-            <file>file:/home/himanshu/NetBeansProjects/Midnight%20OS/crt0.cpp</file>
+            <file>file:/home/himanshu/NetBeansProjects/Midnight-OS/DisplayText.cpp</file>
+            <file>file:/home/himanshu/NetBeansProjects/Midnight-OS/crt0.cpp</file>
+            <file>file:/home/himanshu/NetBeansProjects/Midnight-OS/HAL/I686_Core.cpp</file>
+            <file>file:/home/himanshu/NetBeansProjects/Midnight-OS/grub.cfg</file>
+            <file>file:/home/himanshu/NetBeansProjects/Midnight-OS/Common/mem.h</file>
+            <file>file:/home/himanshu/NetBeansProjects/Midnight-OS/Core/Tables/Tables.h</file>
+            <file>file:/home/himanshu/NetBeansProjects/Midnight-OS/Core/Tables/InterruptHandlers.cpp</file>
+            <file>file:/home/himanshu/NetBeansProjects/Midnight-OS/Core/Tables/InterruptHandlers.h</file>
+            <file>file:/home/himanshu/NetBeansProjects/Midnight-OS/boot.s</file>
+            <file>file:/home/himanshu/NetBeansProjects/Midnight-OS/Core/Tables/Tables.cpp</file>
+            <file>file:/home/himanshu/NetBeansProjects/Midnight-OS/Core/Tables/MultibootHeader.h</file>
+            <file>file:/home/himanshu/NetBeansProjects/Midnight-OS/Makefile</file>
         </group>
     </open-files>
 </project-private>

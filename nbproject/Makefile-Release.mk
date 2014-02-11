@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Common/mem.o \
+	${OBJECTDIR}/Common/stdlib.o \
 	${OBJECTDIR}/Core/APIC.o \
 	${OBJECTDIR}/Core/Tables/CPUID.o \
 	${OBJECTDIR}/Core/Tables/InterruptHandlers.o \
@@ -77,6 +78,11 @@ ${OBJECTDIR}/Common/mem.o: Common/mem.cpp
 	${MKDIR} -p ${OBJECTDIR}/Common
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Common/mem.o Common/mem.cpp
+
+${OBJECTDIR}/Common/stdlib.o: Common/stdlib.cpp 
+	${MKDIR} -p ${OBJECTDIR}/Common
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Common/stdlib.o Common/stdlib.cpp
 
 ${OBJECTDIR}/Core/APIC.o: Core/APIC.cpp 
 	${MKDIR} -p ${OBJECTDIR}/Core
