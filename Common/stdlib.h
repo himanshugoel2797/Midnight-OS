@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   stdlib.h
  * Author: himanshu
  *
@@ -8,7 +8,11 @@
 #ifndef STDLIB_H
 #define	STDLIB_H
 
+
+#include <stddef.h>
+#include <stdint.h>
+
 char * itoa(int n, char * store, int base);
+size_t strlen(const char* str);
 
 #endif	/* STDLIB_H */
-

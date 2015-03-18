@@ -1,5 +1,9 @@
 	.file	"CPUID.cpp"
+	.section	.text.unlikely,"ax",@progbits
+	.align 2
+.LCOLDB0:
 	.text
+.LHOTB0:
 	.align 2
 	.align 16
 	.globl	_ZN5CPUID17EnumerateFeaturesEv
@@ -25,6 +29,15 @@ _ZN5CPUID17EnumerateFeaturesEv:
 	.cfi_endproc
 .LFE0:
 	.size	_ZN5CPUID17EnumerateFeaturesEv, .-_ZN5CPUID17EnumerateFeaturesEv
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+	.align 2
+.LCOLDB1:
+	.text
+.LHOTB1:
 	.align 2
 	.align 16
 	.globl	_ZN5CPUID10HasFeatureENS_16CPU_ECX_FeaturesE
@@ -39,6 +52,15 @@ _ZN5CPUID10HasFeatureENS_16CPU_ECX_FeaturesE:
 	.cfi_endproc
 .LFE1:
 	.size	_ZN5CPUID10HasFeatureENS_16CPU_ECX_FeaturesE, .-_ZN5CPUID10HasFeatureENS_16CPU_ECX_FeaturesE
+	.section	.text.unlikely
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.section	.text.unlikely
+	.align 2
+.LCOLDB2:
+	.text
+.LHOTB2:
 	.align 2
 	.align 16
 	.globl	_ZN5CPUID10HasFeatureENS_16CPU_EDX_FeaturesE
@@ -53,6 +75,15 @@ _ZN5CPUID10HasFeatureENS_16CPU_EDX_FeaturesE:
 	.cfi_endproc
 .LFE2:
 	.size	_ZN5CPUID10HasFeatureENS_16CPU_EDX_FeaturesE, .-_ZN5CPUID10HasFeatureENS_16CPU_EDX_FeaturesE
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+	.align 2
+.LCOLDB3:
+	.text
+.LHOTB3:
 	.align 2
 	.align 16
 	.globl	_ZN5CPUID11MakeRequestENS_14CPUID_RequestsE
@@ -95,6 +126,10 @@ _ZN5CPUID11MakeRequestENS_14CPUID_RequestsE:
 	.cfi_endproc
 .LFE3:
 	.size	_ZN5CPUID11MakeRequestENS_14CPUID_RequestsE, .-_ZN5CPUID11MakeRequestENS_14CPUID_RequestsE
+	.section	.text.unlikely
+.LCOLDE3:
+	.text
+.LHOTE3:
 	.globl	toReturn
 	.section	.bss
 	.align 4
@@ -114,4 +149,4 @@ edx:
 	.size	ecx, 4
 ecx:
 	.zero	4
-	.ident	"GCC: (GNU) 4.8.2"
+	.ident	"GCC: (GNU) 4.9.2"

@@ -1,5 +1,9 @@
 	.file	"HAL_PIC.cpp"
+	.section	.text.unlikely,"ax",@progbits
+	.align 2
+.LCOLDB0:
 	.text
+.LHOTB0:
 	.align 2
 	.align 16
 	.globl	_ZN3HAL10InitializeEv
@@ -7,34 +11,84 @@
 _ZN3HAL10InitializeEv:
 .LFB0:
 	.cfi_startproc
-	subl	$28, %esp
+	subl	$20, %esp
+	.cfi_def_cfa_offset 24
+	pushl	$17
+	.cfi_def_cfa_offset 28
+	pushl	$32
 	.cfi_def_cfa_offset 32
-	movl	$17, 4(%esp)
-	movl	$32, (%esp)
 	call	_ZN4Core7OutByteEth
-	movl	$17, 4(%esp)
-	movl	$160, (%esp)
+	popl	%eax
+	.cfi_def_cfa_offset 28
+	popl	%edx
+	.cfi_def_cfa_offset 24
+	pushl	$17
+	.cfi_def_cfa_offset 28
+	pushl	$160
+	.cfi_def_cfa_offset 32
 	call	_ZN4Core7OutByteEth
-	movl	$32, 4(%esp)
-	movl	$33, (%esp)
+	popl	%ecx
+	.cfi_def_cfa_offset 28
+	popl	%eax
+	.cfi_def_cfa_offset 24
+	pushl	$32
+	.cfi_def_cfa_offset 28
+	pushl	$33
+	.cfi_def_cfa_offset 32
 	call	_ZN4Core7OutByteEth
-	movl	$40, 4(%esp)
-	movl	$161, (%esp)
+	popl	%eax
+	.cfi_def_cfa_offset 28
+	popl	%edx
+	.cfi_def_cfa_offset 24
+	pushl	$40
+	.cfi_def_cfa_offset 28
+	pushl	$161
+	.cfi_def_cfa_offset 32
 	call	_ZN4Core7OutByteEth
-	movl	$4, 4(%esp)
-	movl	$33, (%esp)
+	popl	%ecx
+	.cfi_def_cfa_offset 28
+	popl	%eax
+	.cfi_def_cfa_offset 24
+	pushl	$4
+	.cfi_def_cfa_offset 28
+	pushl	$33
+	.cfi_def_cfa_offset 32
 	call	_ZN4Core7OutByteEth
-	movl	$2, 4(%esp)
-	movl	$161, (%esp)
+	popl	%eax
+	.cfi_def_cfa_offset 28
+	popl	%edx
+	.cfi_def_cfa_offset 24
+	pushl	$2
+	.cfi_def_cfa_offset 28
+	pushl	$161
+	.cfi_def_cfa_offset 32
 	call	_ZN4Core7OutByteEth
-	movl	$1, 4(%esp)
-	movl	$33, (%esp)
+	popl	%ecx
+	.cfi_def_cfa_offset 28
+	popl	%eax
+	.cfi_def_cfa_offset 24
+	pushl	$1
+	.cfi_def_cfa_offset 28
+	pushl	$33
+	.cfi_def_cfa_offset 32
 	call	_ZN4Core7OutByteEth
-	movl	$0, 4(%esp)
-	movl	$161, (%esp)
+	popl	%eax
+	.cfi_def_cfa_offset 28
+	popl	%edx
+	.cfi_def_cfa_offset 24
+	pushl	$0
+	.cfi_def_cfa_offset 28
+	pushl	$161
+	.cfi_def_cfa_offset 32
 	call	_ZN4Core7OutByteEth
-	movl	$0, 4(%esp)
-	movl	$33, (%esp)
+	popl	%ecx
+	.cfi_def_cfa_offset 28
+	popl	%eax
+	.cfi_def_cfa_offset 24
+	pushl	$0
+	.cfi_def_cfa_offset 28
+	pushl	$33
+	.cfi_def_cfa_offset 32
 	call	_ZN4Core7OutByteEth
 	addl	$28, %esp
 	.cfi_def_cfa_offset 4
@@ -42,4 +96,8 @@ _ZN3HAL10InitializeEv:
 	.cfi_endproc
 .LFE0:
 	.size	_ZN3HAL10InitializeEv, .-_ZN3HAL10InitializeEv
-	.ident	"GCC: (GNU) 4.8.2"
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.ident	"GCC: (GNU) 4.9.2"

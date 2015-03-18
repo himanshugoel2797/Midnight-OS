@@ -5,14 +5,14 @@ char * itoa(int n, char * store, int base)
         char * ret = store;
         const char characters[] = {"0123456789ABCDEF"};
         int c;
- 
+
         if(base == 10 && n < 0)
         {
                 * store = '-';
                 store++;
                 n = -n;
         };
- 
+
         do
         {
                 c = n % base;
@@ -21,11 +21,11 @@ char * itoa(int n, char * store, int base)
                 n /= base;
         } while(n);
         * store = '\0';
- 
+
         store--;
         char * aux = ret;
         if(* aux == '-') aux++;
- 
+
         while(aux < store)
         {
                 c = * aux;
@@ -34,6 +34,14 @@ char * itoa(int n, char * store, int base)
                 aux++;
                 store--;
         };
- 
+
         return ret;
 };
+
+
+size_t strlen(const char* str) {
+    size_t ret = 0;
+    while (str[ret] != 0)
+        ret++;
+    return ret;
+}

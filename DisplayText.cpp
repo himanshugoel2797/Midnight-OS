@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   DisplayText.cpp
  * Author: himanshu
- * 
+ *
  * Created on January 10, 2014, 7:41 PM
  */
 
@@ -22,13 +22,6 @@ uint16_t DisplayText::MakeVGAEntry(char c, uint8_t color) {
     return c16 | color16 << 8;
 }
 
-size_t strlen(const char* str) {
-    size_t ret = 0;
-    while (str[ret] != 0)
-        ret++;
-    return ret;
-}
-
 static size_t VGA_WIDTH = 80;
 static size_t VGA_HEIGHT = 24;
 
@@ -40,9 +33,9 @@ uint16_t* buffer;
 void DisplayText::Initialize() {
     row = 0;
     column = 0;
-    
+
     VGA_WIDTH = BIOSMemMap::BIOSData->vid_columns;
-    
+
     color = DisplayText::MakeColor(COLOR_LIGHT_GREY, COLOR_BLACK);
     buffer = (uint16_t*) 0xB8000;
     for (size_t y = 0; y < VGA_HEIGHT; y++) {
@@ -94,7 +87,7 @@ void DisplayText::SetCursor(uint32_t x, uint32_t y)
     //Low port
     Core::OutByte(addr, 0x0F);
     Core::OutByte(addr + 1, (uint16_t)(position&0xFF));
-    
+
     //High port
     Core::OutByte(addr, 0x0E);
     Core::OutByte(addr + 1, (uint16_t)((position>>8)&0xFF));

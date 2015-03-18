@@ -1,11 +1,11 @@
-# Environment 
+# Environment
 
 SOURCES=boot.o crt0.o Core/Tables/InterruptHandlers.o Core/Tables/Tables.o DisplayText.o \
 	Common/mem.o HAL/I686_Core.o Core/Tables/CPUID.o HAL/HAL_PIC.o Common/stdlib.o
 
 
 
-PLATFORM=i686
+PLATFORM=/opt/cross/bin/i686
 
 SDA=sdb
 
@@ -43,6 +43,7 @@ CONF=Debug
 .cpp.o:
 	$(GCC) -S $? -o $(?:.cpp=.s)
 	$(ASM) $(?:.cpp=.s) -o $(?:.cpp=.o)
+	rm -f $(?:.cpp=.s)
 
 .s.o:
 	$(ASM) $? -o $(?:.s=.o)
@@ -51,18 +52,21 @@ run: all
 
 # build
 build:$(CRTI_OBJ) $(SOURCES) $(CRTN_OBJ) .build-post
-	
+
 .build-pre:
 # Add your pre 'build' code here...
 
 .build-post:
 # Add your post 'build' code here...
-	$(PLATFORM)-elf-gcc -T linker.ld -o "build/$(CONF)/kernel.bin" -ffreestanding -O2 -nostdlib $(SRC_OBJ) -lgcc 
+	$(PLATFORM)-elf-gcc -T linker.ld -o "build/$(CONF)/kernel.bin" -ffreestanding -O2 -nostdlib $(SRC_OBJ) -lgcc
 
 # clean
 clean:
 	rm -f *.o
 	rm -f Tables/*.o
+	rm -f Common/*.o
+	rm -f build/$(CONF)/kernel.bin
+	rm -f ISO/os.iso
 
 .clean-pre:
 # Add your pre 'clean' code here...
@@ -98,7 +102,7 @@ build-tests:clean build
 	cp "build/$(CONF)/kernel.bin" ISO/isodir/boot/kernel.bin
 	mkdir -p ISO/isodir/boot/grub
 	cp grub.cfg ISO/isodir/boot/grub/grub.cfg
-	grub-mkrescue -o ISO/os.iso ISO/isodir
+	grub2-mkrescue -o ISO/os.iso ISO/isodir
 
 .build-tests-pre:
 # Add your pre 'build-tests' code here...

@@ -1,5 +1,9 @@
 	.file	"I686_Core.cpp"
+	.section	.text.unlikely,"ax",@progbits
+	.align 2
+.LCOLDB0:
 	.text
+.LHOTB0:
 	.align 2
 	.align 16
 	.globl	_ZN4Core10InitializeEv
@@ -17,6 +21,15 @@ _ZN4Core10InitializeEv:
 	.cfi_endproc
 .LFE0:
 	.size	_ZN4Core10InitializeEv, .-_ZN4Core10InitializeEv
+	.section	.text.unlikely
+.LCOLDE0:
+	.text
+.LHOTE0:
+	.section	.text.unlikely
+	.align 2
+.LCOLDB1:
+	.text
+.LHOTB1:
 	.align 2
 	.align 16
 	.globl	_ZN4Core7OutByteEth
@@ -35,6 +48,15 @@ _ZN4Core7OutByteEth:
 	.cfi_endproc
 .LFE1:
 	.size	_ZN4Core7OutByteEth, .-_ZN4Core7OutByteEth
+	.section	.text.unlikely
+.LCOLDE1:
+	.text
+.LHOTE1:
+	.section	.text.unlikely
+	.align 2
+.LCOLDB2:
+	.text
+.LHOTB2:
 	.align 2
 	.align 16
 	.globl	_ZN4Core6InWordEt
@@ -52,6 +74,15 @@ _ZN4Core6InWordEt:
 	.cfi_endproc
 .LFE2:
 	.size	_ZN4Core6InWordEt, .-_ZN4Core6InWordEt
+	.section	.text.unlikely
+.LCOLDE2:
+	.text
+.LHOTE2:
+	.section	.text.unlikely
+	.align 2
+.LCOLDB3:
+	.text
+.LHOTB3:
 	.align 2
 	.align 16
 	.globl	_ZN4Core6InByteEt
@@ -69,4 +100,8 @@ _ZN4Core6InByteEt:
 	.cfi_endproc
 .LFE3:
 	.size	_ZN4Core6InByteEt, .-_ZN4Core6InByteEt
-	.ident	"GCC: (GNU) 4.8.2"
+	.section	.text.unlikely
+.LCOLDE3:
+	.text
+.LHOTE3:
+	.ident	"GCC: (GNU) 4.9.2"

@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   main.cpp
  * Author: himanshu
  *
@@ -72,18 +72,10 @@ void kernel_main() {
     DisplayText::WriteString("\nHas APIC: ");
     DisplayText::WriteBool(CPUID::HasFeature(CPUID::CPU_EDX_Features::CPUID_FEAT_EDX_APIC));
 
-    //DisplayText::WriteInt(0/(1-1));
-    
     DisplayText::WriteString("\nTesting Interrupts...");
     InterruptHandlers::RegisterInterruptHandler(1, InterruptsTest);     //Register the interrupt handler
     asm volatile("int $0x1");                                           //Trigger an interrupt
     DisplayText::WritePassOrFail(temp);                                 //Check if it worked
     InterruptHandlers::UnregisterInterruptHandler(1);                   //Unregister the interrupt handler
-    
-    DisplayText::WriteHex(0x555f);
-    
-    for (int8_t* x = (int8_t*) 1; x < (int8_t*) 0x100; x++) {
-        DisplayText::WriteHex(*x);
-        DisplayText::WriteString(" ");
-    }
+
 }
