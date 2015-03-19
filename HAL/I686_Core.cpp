@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   Core.cpp
  * Author: himanshu
- * 
+ *
  * Created on January 11, 2014, 11:24 PM
  */
 
@@ -13,7 +13,6 @@
 #if defined(I686_ARCH) || defined(I586_ARCH) || defined(I386_ARCH)
 void Core::Initialize()
 {
-    Tables::Initialize();
     InterruptHandlers::Initialize();
     CPUID::EnumerateFeatures();                 //Get all the available features on the CPU
 }

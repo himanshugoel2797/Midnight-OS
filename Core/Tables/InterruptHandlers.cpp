@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   InterruptHandlers.cpp
  * Author: himanshu
- * 
+ *
  * Created on January 11, 2014, 2:47 AM
  */
 
@@ -135,6 +135,87 @@ void InterruptHandlers::isrONEPARAM(uint8_t num) {
     InterruptHandler(num);
 }
 
+
+void InterruptHandlers::irqNOPARAM32() {
+    asm("cli");
+    IRQHandler(32);
+}
+
+void InterruptHandlers::irqNOPARAM33() {
+    asm("cli");
+    IRQHandler(33);
+}
+
+void InterruptHandlers::irqNOPARAM34() {
+    asm("cli");
+    IRQHandler(34);
+}
+
+void InterruptHandlers::irqNOPARAM35() {
+    asm("cli");
+    IRQHandler(35);
+}
+
+void InterruptHandlers::irqNOPARAM36() {
+    asm("cli");
+    IRQHandler(36);
+}
+
+void InterruptHandlers::irqNOPARAM37() {
+    asm("cli");
+    IRQHandler(37);
+}
+
+void InterruptHandlers::irqNOPARAM38() {
+    asm("cli");
+    IRQHandler(38);
+}
+
+void InterruptHandlers::irqNOPARAM39() {
+    asm("cli");
+    IRQHandler(39);
+}
+
+void InterruptHandlers::irqNOPARAM40() {
+    asm("cli");
+    IRQHandler(40);
+}
+
+void InterruptHandlers::irqNOPARAM41() {
+    asm("cli");
+    IRQHandler(41);
+}
+
+void InterruptHandlers::irqNOPARAM42() {
+    asm("cli");
+    IRQHandler(42);
+}
+
+void InterruptHandlers::irqNOPARAM43() {
+    asm("cli");
+    IRQHandler(43);
+}
+
+void InterruptHandlers::irqNOPARAM44() {
+    asm("cli");
+    IRQHandler(44);
+}
+
+void InterruptHandlers::irqNOPARAM45() {
+    asm("cli");
+    IRQHandler(45);
+}
+
+void InterruptHandlers::irqNOPARAM46() {
+    asm("cli");
+    IRQHandler(46);
+}
+
+void InterruptHandlers::irqNOPARAM47() {
+    asm("cli");
+    IRQHandler(47);
+}
+
 void(*handlers[256])(int32_t);
 
 void InterruptHandlers::Initialize()
@@ -154,6 +235,7 @@ void InterruptHandlers::UnregisterInterruptHandler(int32_t interruptNumber)
 }
 
 void InterruptHandlers::InterruptHandler(uint8_t num) {
+  //Interrupt service routines
     if(handlers[num] == NULL){
     DisplayText::WriteString("\nInterrupt Received : ");
     DisplayText::WriteInt(num);
@@ -161,6 +243,21 @@ void InterruptHandlers::InterruptHandler(uint8_t num) {
     }else{
         (*handlers[num])(num);
     }
+}
+
+void InterruptHandlers::IRQHandler(uint8_t num){
+  //IRQs
+  if(handlers[num] == NULL){
+  DisplayText::WriteString("\nInterrupt(IRQ) Received : ");
+  DisplayText::WriteInt(num);
+  DisplayText::WriteString("\n");
+  }else{
+      (*handlers[num])(num);
+  }
+
+  //Send EOI messages
+  if(num >= 40)Core::OutByte(0xA0, 0x20);
+  Core::OutByte(0x20,0x20);
 }
 
 void InterruptHandlers::Update() {

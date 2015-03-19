@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   InterruptHandlers.h
  * Author: himanshu
  *
@@ -10,11 +10,13 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include "../Core.h"
 
 class InterruptHandlers {
 public:
     static void Initialize();
     static void InterruptHandler(uint8_t num);
+    static void IRQHandler(uint8_t num);
     // These extern directives let us access the addresses of our ASM ISR handlers.
     static void isrNOPARAM0();
     static void isrNOPARAM1();
@@ -43,6 +45,23 @@ public:
     static void isrNOPARAM30();
     static void isrNOPARAM31();
     static void isrONEPARAM(uint8_t);
+    static void irqNOPARAM32();
+    static void irqNOPARAM33();
+    static void irqNOPARAM34();
+    static void irqNOPARAM35();
+    static void irqNOPARAM36();
+    static void irqNOPARAM37();
+    static void irqNOPARAM38();
+    static void irqNOPARAM39();
+    static void irqNOPARAM40();
+    static void irqNOPARAM41();
+    static void irqNOPARAM42();
+    static void irqNOPARAM43();
+    static void irqNOPARAM44();
+    static void irqNOPARAM45();
+    static void irqNOPARAM46();
+    static void irqNOPARAM47();
+    
     static void RegisterInterruptHandler(int32_t interruptNumber, void (*function)(int32_t));
     static void UnregisterInterruptHandler(int32_t interruptNumber);
     static void Update();
@@ -50,4 +69,3 @@ private:
 };
 
 #endif	/* INTERRUPTHANDLERS_H */
-

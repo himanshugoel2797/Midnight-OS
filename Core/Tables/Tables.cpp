@@ -1,13 +1,14 @@
-/* 
+/*
  * File:   Tables.cpp
  * Author: himanshu
- * 
+ *
  * Created on January 10, 2014, 10:15 PM
  */
 
 #include "Tables.h"
 #include "../Core.h"
 #include "../../Common/mem.h"
+#include "../PIC.h"
 
 static Tables::GDT_Entry gdt_entries[5];
 static Tables::GDT_Ptr gdt_ptr;
@@ -36,6 +37,7 @@ void Tables::IDT_Init() {
     idt_ptr.base = (uint32_t) & idt_entries;
 
     memset(&idt_entries, 0, sizeof (Tables::IDT_Entry)*256);
+    IDT_Flush((uint32_t) & idt_ptr);
 
     IDT_SetGate(0, (uint32_t) InterruptHandlers::isrNOPARAM0, 0x08, 0x8E);
     IDT_SetGate(1, (uint32_t) InterruptHandlers::isrNOPARAM1, 0x08, 0x8E);
@@ -71,8 +73,36 @@ void Tables::IDT_Init() {
     IDT_SetGate(31, (uint32_t) InterruptHandlers::isrNOPARAM31, 0x08, 0x8E);
 
 
+    //Initialize the Master and Slave PICs
+    Core::OutByte(PIC_MASTER_COMMAND, 0x11);
+    Core::OutByte(PIC_SLAVE_COMMAND, 0x11);
+    Core::OutByte(PIC_MASTER_DATA, 0x20);
+    Core::OutByte(PIC_SLAVE_DATA, 0x28);
+    Core::OutByte(PIC_MASTER_DATA,0x04);
+    Core::OutByte(PIC_SLAVE_DATA, 0x02);
+    Core::OutByte(PIC_MASTER_DATA, 0x01);
+    Core::OutByte(PIC_SLAVE_DATA, 0x01);
+    Core::OutByte(PIC_MASTER_DATA, 0x0);
+    Core::OutByte(PIC_SLAVE_DATA, 0x0);
 
-    IDT_Flush((uint32_t) & idt_ptr);
+    IDT_SetGate(32, (uint32_t) InterruptHandlers::irqNOPARAM32, 0x08, 0x8E);
+    IDT_SetGate(33, (uint32_t) InterruptHandlers::irqNOPARAM33, 0x08, 0x8E);
+    IDT_SetGate(34, (uint32_t) InterruptHandlers::irqNOPARAM34, 0x08, 0x8E);
+    IDT_SetGate(35, (uint32_t) InterruptHandlers::irqNOPARAM35, 0x08, 0x8E);
+    IDT_SetGate(36, (uint32_t) InterruptHandlers::irqNOPARAM36, 0x08, 0x8E);
+    IDT_SetGate(37, (uint32_t) InterruptHandlers::irqNOPARAM37, 0x08, 0x8E);
+    IDT_SetGate(38, (uint32_t) InterruptHandlers::irqNOPARAM38, 0x08, 0x8E);
+    IDT_SetGate(39, (uint32_t) InterruptHandlers::irqNOPARAM39, 0x08, 0x8E);
+    IDT_SetGate(40, (uint32_t) InterruptHandlers::irqNOPARAM40, 0x08, 0x8E);
+    IDT_SetGate(41, (uint32_t) InterruptHandlers::irqNOPARAM41, 0x08, 0x8E);
+    IDT_SetGate(42, (uint32_t) InterruptHandlers::irqNOPARAM42, 0x08, 0x8E);
+    IDT_SetGate(43, (uint32_t) InterruptHandlers::irqNOPARAM43, 0x08, 0x8E);
+    IDT_SetGate(44, (uint32_t) InterruptHandlers::irqNOPARAM44, 0x08, 0x8E);
+    IDT_SetGate(45, (uint32_t) InterruptHandlers::irqNOPARAM45, 0x08, 0x8E);
+    IDT_SetGate(46, (uint32_t) InterruptHandlers::irqNOPARAM46, 0x08, 0x8E);
+    IDT_SetGate(47, (uint32_t) InterruptHandlers::irqNOPARAM47, 0x08, 0x8E);
+
+    asm volatile("sti");
 }
 
 void __attribute__((noinline)) Tables::IDT_Flush(uint32_t idtPtr) {

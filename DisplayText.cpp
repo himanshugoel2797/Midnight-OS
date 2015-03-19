@@ -123,6 +123,14 @@ void DisplayText::WriteInt(int32_t num) {
     DisplayText::WriteString((const char*) c);
 }
 
+void DisplayText::WriteBinary(int32_t num, int32_t len)
+{
+  for(int32_t i = len-1; i >= 0; i--){
+    if((num & 1<<i))  DisplayText::WriteInt(1);
+    else DisplayText::WriteInt(0);
+  }
+}
+
 void DisplayText::WriteString(const char* data) {
     size_t datalen = strlen(data);
     for (size_t i = 0; i < datalen; i++)

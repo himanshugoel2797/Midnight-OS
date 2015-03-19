@@ -60,11 +60,11 @@ _start:
         pushl   %eax
         /* Push the magic value. */
         pushl   %ebx
-	
+
         #setup the kernel core - Logger services, exception handlers and VGA Text mode display
         call setup_kernel_core
         #initialize and call the global constructors
-	call _init
+				call _init
         #launch the kernel
         call kernel_main
 	# In case the function returns, we'll want to put the computer into an

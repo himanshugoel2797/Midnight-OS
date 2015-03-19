@@ -63,7 +63,8 @@ build:$(CRTI_OBJ) $(SOURCES) $(CRTN_OBJ) .build-post
 # clean
 clean:
 	rm -f *.o
-	rm -f Tables/*.o
+	rm -f Core/*.o
+	rm -f Core/Tables/*.o
 	rm -f Common/*.o
 	rm -f build/$(CONF)/kernel.bin
 	rm -f ISO/os.iso

@@ -60,8 +60,6 @@ extern "C" void InterruptsTest(int32_t num)
 
 extern "C" /* Use C linkage for kernel_main. */
 void kernel_main() {
-    CPUID::EnumerateFeatures();
-
 
     DisplayText::WriteString("\nMidnight OS...");
     DisplayText::WriteString("Done", DisplayText::COLOR_GREEN, DisplayText::COLOR_BLACK);
@@ -76,6 +74,9 @@ void kernel_main() {
     InterruptHandlers::RegisterInterruptHandler(1, InterruptsTest);     //Register the interrupt handler
     asm volatile("int $0x1");                                           //Trigger an interrupt
     DisplayText::WritePassOrFail(temp);                                 //Check if it worked
-    InterruptHandlers::UnregisterInterruptHandler(1);                   //Unregister the interrupt handler
+    //InterruptHandlers::UnregisterInterruptHandler(1);                   //Unregister the interrupt handler
 
+    for(;;){
+      asm("hlt");
+    }
 }

@@ -1,7 +1,7 @@
-/* 
+/*
  * File:   APIC.cpp
  * Author: himanshu
- * 
+ *
  * Created on January 12, 2014, 8:29 PM
  */
 
@@ -9,9 +9,9 @@
 
 APIC::Initialize()
 {
-    if(CPUID::HasFeature(CPUID::CPUID_FEAT_EDX_APIC) || 
+    if(CPUID::HasFeature(CPUID::CPUID_FEAT_EDX_APIC) ||
             CPUID::HasFeature(CPUID::CPUID_FEAT_ECX_x2APIC))
     {
-        
+        //TODO Finish the code to initialize the APIC
     }
 }

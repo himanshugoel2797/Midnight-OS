@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   DisplayText.h
  * Author: himanshu
  *
@@ -47,6 +47,7 @@ public:
     static void WriteHex(int32_t num);
     static void WriteString(const char* data);
     static void WriteString(const char* data, enum Display_Colors fg, enum Display_Colors bg);
+    static void WriteBinary(int32_t num, int32_t len);
     static void WriteBool(bool data);
     static void WritePassOrFail(bool data);
 private:
@@ -54,4 +55,3 @@ private:
 };
 
 #endif	/* DISPLAYTEST_H */
-
